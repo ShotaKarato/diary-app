@@ -11,8 +11,10 @@ function App(props) {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       !user && props.history.push("user-auth");
+      // console.log(user.displayName, user.uid);
     });
   }, []);
+  console.log();
   return (
     <div className="App">
       <Header history={props.history} />

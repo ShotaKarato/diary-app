@@ -4,8 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -15,7 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import { auth } from "../../firebase";
-import { RouteComponentProps } from "react-router-dom";
+// import { RouteComponentProps } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -36,12 +34,12 @@ const UserAuth = (props) => {
       alert(error.message);
     }
   };
-
   // handle sign up
   const handleSignUp = async (data) => {
-    const { email, password } = data;
+    const { name, email, password } = data;
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      const entry = await auth.createUserWithEmailAndPassword(email, password);
+      const displayName = await entry.user.updateProfile({ displayName: name });
       props.history.push("/");
     } catch (error) {
       alert(error.message);
@@ -73,6 +71,7 @@ const UserAuth = (props) => {
           <Typography component="h1" variant="h5">
             {isSignIn ? "Sign In" : "Sign up"}
           </Typography>
+          {/* handleSubmit(handleSignUp) */}
           <Box
             component="form"
             noValidate
@@ -80,37 +79,83 @@ const UserAuth = (props) => {
               isSignIn ? handleSubmit(handleSignIn) : handleSubmit(handleSignUp)
             }
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  {...register("email", {
-                    required: "required",
-                  })}
-                />
+            {isSignIn ? (
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    {...register("email", {
+                      required: "required",
+                    })}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                    {...register("password", {
+                      required: "required",
+                    })}
+                  />
+                </Grid>
+                <Grid item xs={12}></Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  {...register("password", {
-                    required: "required",
-                  })}
-                />
+            ) : (
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="name"
+                    label="Name"
+                    name="name"
+                    autoFocus
+                    {...register("name", {
+                      required: "required",
+                    })}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    {...register("email", {
+                      required: "required",
+                    })}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                    {...register("password", {
+                      required: "required",
+                    })}
+                  />
+                </Grid>
+                <Grid item xs={12}></Grid>
               </Grid>
-              <Grid item xs={12}></Grid>
-            </Grid>
+            )}
             <Button type="submit" fullWidth variant="contained">
               {isSignIn ? "Sign In" : "Sign up"}
             </Button>
