@@ -1,25 +1,22 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useEffect } from "react";
 import { auth } from "./firebase";
+import { RouteComponentProps } from "react-router-dom";
+// Style
+import styles from "./App.css";
+// Components
+import Header from "./components/header/Header";
+import Hero from "./components/hero/Hero";
 
-function App() {
-  console.log(auth);
+function App(props) {
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      !user && props.history.push("user-auth");
+    });
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header history={props.history} />
+      <Hero />
     </div>
   );
 }

@@ -1,0 +1,14 @@
+@import "./variables/Variables.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+.App {
+  font-family: $ff-primary;
+  color: $color-scheme-text;
+}

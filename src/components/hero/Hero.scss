@@ -1,0 +1,10 @@
+@import "../../variables/Variables.scss";
+
+.bl-hero {
+  height: 60vh;
+  padding: 20px 40px;
+  background: $color-scheme-bg;
+  &__greeting-text {
+    font-size: 2rem;
+  }
+}
