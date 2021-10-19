@@ -1,7 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { auth } from "./firebase";
 
 function App() {
+  console.log(auth);
   return (
     <div className="App">
       <header className="App-header">
