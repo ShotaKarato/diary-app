@@ -15,6 +15,7 @@ import styles from "./App.css";
 import Header from "./components/header/Header";
 import Hero from "./components/hero/Hero";
 import DiaryInput from "./components/diaryInput/DiaryInput";
+import DiaryEdit from "./components/diaryEdit/DiaryEdit";
 
 function App(props) {
   // redux - setup
@@ -41,6 +42,7 @@ function App(props) {
       <Header history={props.history} />
       <Hero />
       <DiaryInput />
+      <DiaryEdit />
     </div>
   );
 }
