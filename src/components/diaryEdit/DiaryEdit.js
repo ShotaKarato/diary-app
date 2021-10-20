@@ -1,28 +1,30 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { db } from "../../firebase";
 // redux - setup
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchDiaries } from "../../slices/userSlice";
-import { toggleInput } from "../../slices/diaryInputSlice";
+import { toggleEdit } from "../../slices/diaryEditSlice";
+
 // style
-import styles from "./DiaryInput.css";
+import styles from "./DiaryEdit.css";
 // components
 import TextField from "@mui/material/TextField";
 
-const DiaryInput = () => {
+const DiaryEdit = () => {
   // redux - setup
-  const { user_id } = useSelector((state) => state.user);
-  const diary_input = useSelector((state) => state.diaryInput);
+  const { user_id, user_diaries } = useSelector((state) => state.user);
+  const diary_id = useSelector((state) => state.selectedDiary);
+  const diary_edit = useSelector((state) => state.diaryEdit);
   const dispatch = useDispatch();
 
+  // react hook form - setup
   const { register, handleSubmit } = useForm();
   const handleDiarySubmit = async (data) => {
     const { title, content } = data;
     try {
-      await db.collection("diaries").add({
-        user_id,
+      const diaryRef = db.collection("diaries").doc(diary_id);
+      await diaryRef.update({
         title,
         content,
       });
@@ -31,17 +33,18 @@ const DiaryInput = () => {
       console.log(error.message);
     }
   };
+
   return (
-    <div className={diary_input ? "bl-diary-input" : "bl-diary-input hidden"}>
+    <div className={diary_edit ? "bl-diary-edit" : "bl-diary-edit hidden"}>
       <form
-        className="bl-diary-input__form"
+        className="bl-diary-edit__form"
         onSubmit={handleSubmit(handleDiarySubmit)}
       >
-        <fieldset className="bl-diary-input__wrapper">
+        <fieldset className="bl-diary-edit__wrapper">
           <TextField
             id="outlined-basic"
             label="Title"
-            className="bl-diary-input__title"
+            className="bl-diary-edit__title"
             autoFocus
             {...register("title", {
               required: "required",
@@ -50,7 +53,7 @@ const DiaryInput = () => {
           <TextField
             id="outlined-multiline-static"
             label="Content"
-            className="bl-diary-input__content"
+            className="bl-diary-edit__content"
             multiline
             rows={16}
             {...register("content", {
@@ -59,18 +62,18 @@ const DiaryInput = () => {
           />
           <button
             type="submit"
-            className="bl-diary-input__btn"
+            className="bl-diary-edit__btn"
             onClick={() => {
-              dispatch(toggleInput());
+              dispatch(toggleEdit());
             }}
           >
             Submit!
           </button>
           <button
-            className="bl-diary-input__btn bl-diary-input__btn--cancel"
+            className="bl-diary-edit__btn bl-diary-edit__btn--cancel"
             onClick={(e) => {
               e.preventDefault();
-              dispatch(toggleInput());
+              dispatch(toggleEdit());
             }}
           >
             Cancel
@@ -81,4 +84,4 @@ const DiaryInput = () => {
   );
 };
 
-export default DiaryInput;
+export default DiaryEdit;

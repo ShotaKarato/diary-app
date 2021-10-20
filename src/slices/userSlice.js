@@ -9,9 +9,11 @@ export const fetchDiaries = createAsyncThunk(
     // get the data
     const diaries = await diariesRef.get();
     const results = diaries.docs
-      .map((doc) => doc.data())
       .map((doc) => {
-        return { title: doc.title, content: doc.content };
+        return { id: doc.id, data: doc.data() };
+      })
+      .map((doc) => {
+        return { id: doc.id, title: doc.data.title, content: doc.data.content };
       });
     return results;
   }
