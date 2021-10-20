@@ -1,0 +1,51 @@
+@import "../../variables/Variables.scss";
+
+.bl-diary-input {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: $ff-primary;
+  background: rgba(62, 62, 62, 0.7);
+  &__form {
+    background: #fff;
+    width: 80vw;
+    padding: 32px;
+    border-radius: 20px;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+  }
+  &__title {
+    width: 100%;
+    margin: 0 0 20px !important;
+  }
+  &__content {
+    width: 100%;
+    margin: 0 0 40px !important;
+  }
+  &__btn {
+    width: 50%;
+    margin: 12px;
+    padding: 12px;
+    color: $color-scheme-bg;
+    border: none;
+    border-radius: 100px;
+    background-color: $color-scheme-main;
+    &--cancel {
+      color: $color-scheme-text;
+      background-color: $color-scheme-bg;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
