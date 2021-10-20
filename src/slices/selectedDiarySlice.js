@@ -10,8 +10,11 @@ const selectedDiarySlice = createSlice({
       state = action.payload;
       return state;
     },
+    resetSelectedDiary: (state, action) => {
+      state = "";
+    },
   },
 });
 
-export const { diarySelected } = selectedDiarySlice.actions;
+export const { diarySelected, resetSelectedDiary } = selectedDiarySlice.actions;
 export default selectedDiarySlice.reducer;

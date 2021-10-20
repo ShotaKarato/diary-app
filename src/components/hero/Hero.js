@@ -18,7 +18,7 @@ const Hero = () => {
       <section className="bl-hero">
         <h2 className="bl-hero__greeting-text">
           G'day {user_name}!<br />
-          <span className="bl-hero__text--large">What's on you mind?</span>
+          <span className="bl-hero__text--large">What's on your mind?</span>
         </h2>
         <button
           className="bl-hero__post-btn"

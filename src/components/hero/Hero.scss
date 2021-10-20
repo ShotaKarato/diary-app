@@ -6,7 +6,10 @@
   justify-content: space-between;
   height: 40vh;
   padding: 20px 40px;
-  background: $color-scheme-bg;
+  background: url("../../img/bg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   &__greeting-text {
     align-items: center;
     font-size: 2rem;

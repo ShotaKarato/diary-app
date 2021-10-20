@@ -9,6 +9,7 @@ import {
   setCurrentUser,
   resetCurrentUser,
 } from "./slices/userSlice";
+import { resetSelectedDiary } from "./slices/selectedDiarySlice";
 // style
 import styles from "./App.css";
 // components
@@ -33,6 +34,7 @@ function App(props) {
     });
     return () => {
       dispatch(resetCurrentUser());
+      dispatch(resetSelectedDiary());
       isMounted = false;
     };
   }, []);
