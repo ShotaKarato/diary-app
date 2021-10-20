@@ -3,7 +3,6 @@ import { auth } from "../../firebase";
 // Styles
 import styles from "./Header.css";
 // Components
-import LogOutBtn from "../logOutBtn/LogOutBtn";
 
 const Header = ({ history }) => {
   const handleSignOut = async () => {
